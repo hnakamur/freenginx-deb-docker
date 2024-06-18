@@ -91,7 +91,7 @@
  static size_t ngx_http_log_unescaped_variable_getlen(ngx_http_request_t *r,
      uintptr_t data);
  static u_char *ngx_http_log_unescaped_variable(ngx_http_request_t *r,
-@@ -931,6 +936,11 @@
+@@ -918,6 +923,11 @@
          op->run = ngx_http_log_json_variable;
          break;
  
@@ -103,7 +103,7 @@
      case NGX_HTTP_LOG_ESCAPE_NONE:
          op->getlen = ngx_http_log_unescaped_variable_getlen;
          op->run = ngx_http_log_unescaped_variable;
-@@ -1090,6 +1100,47 @@
+@@ -1077,6 +1087,47 @@
  
  
  static size_t
@@ -151,7 +151,7 @@
  ngx_http_log_unescaped_variable_getlen(ngx_http_request_t *r, uintptr_t data)
  {
      ngx_http_variable_value_t  *value;
-@@ -1601,6 +1652,9 @@
+@@ -1588,6 +1639,9 @@
          } else if (ngx_strcmp(data, "none") == 0) {
              escape = NGX_HTTP_LOG_ESCAPE_NONE;
  
