@@ -156,8 +156,8 @@
 	url = https://github.com/fffonion/lua-resty-openssl
 [submodule "nginx-tests"]
 	path = nginx-tests
-	url = https://github.com/freenginx/nginx-tests
-	branch = default
+	url = https://github.com/hnakamur/freenginx-tests
+	branch = add_sleep_to_sub_filter_multi
 [submodule "freenginx"]
 	path = freenginx
 	url = https://github.com/freenginx/nginx
