@@ -53,18 +53,18 @@ ARG SRC_DIR=/src
 ARG BUILD_USER=nginx
 RUN adduser --system --group ${BUILD_USER}
 
-COPY --chown=${BUILD_USER}:${BUILD_USER} ./nginx/ ${SRC_DIR}/nginx/
-COPY --chown=${BUILD_USER}:${BUILD_USER} ./modules/ ${SRC_DIR}/nginx/
+COPY --chown=${BUILD_USER}:${BUILD_USER} ./freenginx/ ${SRC_DIR}/freenginx/
+COPY --chown=${BUILD_USER}:${BUILD_USER} ./modules/ ${SRC_DIR}/freenginx/
 
 USER ${BUILD_USER}
 WORKDIR ${SRC_DIR}
 ARG PKG_VERSION
-RUN tar cf - nginx | xz > nginx_${PKG_VERSION}.orig.tar.xz
+RUN tar cf - freenginx | xz > freenginx_${PKG_VERSION}.orig.tar.xz
 
-COPY --chown=${BUILD_USER}:${BUILD_USER} ./debian ${SRC_DIR}/nginx/debian/
-WORKDIR ${SRC_DIR}/nginx
+COPY --chown=${BUILD_USER}:${BUILD_USER} ./debian ${SRC_DIR}/freenginx/debian/
+WORKDIR ${SRC_DIR}/freenginx
 ARG PKG_REL_DISTRIB
-RUN sed -i "s/DebRelDistrib/${PKG_REL_DISTRIB}/;s/UNRELEASED/$(lsb_release -cs)/" ${SRC_DIR}/nginx/debian/changelog
+RUN sed -i "s/DebRelDistrib/${PKG_REL_DISTRIB}/;s/UNRELEASED/$(lsb_release -cs)/" ${SRC_DIR}/freenginx/debian/changelog
 RUN dpkg-buildpackage -us -uc
 
 COPY --chown=${BUILD_USER}:${BUILD_USER} ./nginx-tests/ ${SRC_DIR}/nginx-tests/

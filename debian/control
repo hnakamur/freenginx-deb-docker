@@ -1,7 +1,7 @@
-Source: nginx
+Source: freenginx
 Section: httpd
 Priority: optional
-Maintainer: Sergey Budnevitch <sb@nginx.com>
+Maintainer: Hiroaki Nakamura <hnakamur@gmail.com>
 Build-Depends: debhelper (>= 9~),
                dpkg-dev (>= 1.16.1~),
                quilt (>= 0.46-7~),
@@ -18,20 +18,22 @@ Build-Depends: debhelper (>= 9~),
                libmaxminddb-dev,
                libperl-dev
 Standards-Version: 3.9.8.0
-Homepage: http://nginx.org
+Homepage: http://freenginx.org
 
-Package: nginx
+Package: freenginx
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, lsb-base (>= 3.0-6), adduser
 Provides: httpd
 Description: high performance web server
- nginx [engine x] is an HTTP and reverse proxy server, as well as
- a mail proxy server.
+ freenginx is an effort to preserve free and open development of
+ nginx [engine x], an HTTP and reverse proxy server, a mail proxy
+ server, and a generic TCP/UDP proxy server, originally written
+ by Igor Sysoev.
 
-Package: nginx-dbg
+Package: freenginx-dbg
 Architecture: any
 Section: debug
 Priority: extra
 Depends: ${misc:Depends}, nginx (= ${binary:Version})
-Description: nginx debug symbols
- This package contains the debugging symbols for nginx.
+Description: freenginx debug symbols
+ This package contains the debugging symbols for freenginx.

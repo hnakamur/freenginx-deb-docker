@@ -7,11 +7,11 @@ export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed -pie -lm -lluajit-5.1 -ldl
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/buildflags.mk
 
-PKGS = nginx nginx-dbg
+PKGS = freenginx freenginx-dbg
 
 BUILDDIR_nginx = $(CURDIR)/debian/build-nginx
 BUILDDIR_nginx_debug = $(CURDIR)/debian/build-nginx-debug
-INSTALLDIR = $(CURDIR)/debian/nginx
+INSTALLDIR = $(CURDIR)/debian/freenginx
 BASEDIR = $(CURDIR)
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
@@ -214,7 +214,7 @@ build-arch: build-arch.nginx build-arch.nginx_debug
 
 build-dbg.%: install
 	dh_testdir
-	dh_strip --dbg-package=nginx-dbg
+	dh_strip --dbg-package=freenginx-dbg
 
 build-dbg: build-dbg.nginx
 	dh_testdir
@@ -263,19 +263,19 @@ install:
 binary-indep: build post-build install
 	dh_testdir
 	dh_testroot
-	dh_installman -i -pnginx
+	dh_installman -i -pfreenginx
 	dh_installdebconf
 	sed -e 's/%%PROVIDES%%/nginx/g' \
 		-e 's/%%DEFAULTSTART%%/2 3 4 5/g' \
 		-e 's/%%DEFAULTSTOP%%/0 1 6/g' \
-		< debian/nginx.init.in > debian/nginx.init
-	dh_installinit -i -pnginx --no-restart-on-upgrade --no-start --name=nginx
-	sed -e 's/%%PROVIDES%%/nginx-debug/g' \
+		< debian/freenginx.init.in > debian/freenginx.init
+	dh_installinit -i -pfreenginx --no-restart-on-upgrade --no-start --name=freenginx
+	sed -e 's/%%PROVIDES%%/freenginx-debug/g' \
 		-e 's/%%DEFAULTSTART%%//g' \
 		-e 's/%%DEFAULTSTOP%%/0 1 2 3 4 5 6/g' \
-		< debian/nginx.init.in > debian/nginx-debug.init
-	dh_installinit -i -pnginx --no-restart-on-upgrade --no-start --noscripts --name=nginx-debug
-	dh_installlogrotate -i -pnginx --name=nginx
+		< debian/freenginx.init.in > debian/freenginx-debug.init
+	dh_installinit -i -pfreenginx --no-restart-on-upgrade --no-start --noscripts --name=freenginx-debug
+	dh_installlogrotate -i -pfreenginx --name=freenginx
 
 binary-arch: install build-dbg
 	dh_testdir
